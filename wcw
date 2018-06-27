@@ -18,18 +18,22 @@ for my $file ( sort @files ) {
 
     print "Processing file $file...\n";
 
-    # Strip ".yml" extension
+    # Strip ".yml" (or ".yaml) extension
     ( my $basefilename ) = $file =~ /^(.*)\.ya?ml$/;
 
-    # Reading content
+    # Reading content of config file
     my $yaml = YAML::Tiny->read( "./websites/$file" );
 
+    # Get "url: " value
     my $url = $yaml->[0]->{url};
 
+    # Retrieve content of website
     my $content = get( $url );
 
     my $old_content = "";
     my $old_filename = "./saved-content/$basefilename.dat";
+
+    # Check if file with previous content exists
     if ( ! -f $old_filename ) {
         print "File '$old_filename' didn't exist.\n";
         # no further action
@@ -41,6 +45,7 @@ for my $file ( sort @files ) {
         }
     }
 
+    # Compare old with current content
     if ( $old_content ne $content ) {
         # Something changed
         print "Content has changed.\n";
