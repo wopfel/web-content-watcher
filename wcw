@@ -31,8 +31,8 @@ for my $file ( sort @files ) {
     my $old_content = "";
     my $old_filename = "./saved-content/$basefilename.dat";
     if ( ! -f $old_filename ) {
-        # File doesn't exist
-        # no action
+        print "File '$old_filename' didn't exist.\n";
+        # no further action
     } else {
         {
             open( my $old_fh, "<", $old_filename ) || die "Can't open file";
@@ -49,6 +49,8 @@ for my $file ( sort @files ) {
         open( my $old_fh, ">", $old_filename ) || die "Can't open output file";
         print $old_fh $content;
         close $old_fh;
+    } else {
+        print "No new content.\n";
     }
 
 }
