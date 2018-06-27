@@ -2,6 +2,7 @@
 
 use strict;
 use warnings;
+use YAML::Tiny;
 
 
 
@@ -15,7 +16,10 @@ closedir $dh;
 for my $file ( sort @files ) {
 
     print "Processing file $file...\n";
-    
-    
+
+    # Reading content
+    my $yaml = YAML::Tiny->read( "./websites/$file" );
+
+    my $url = $yaml->[0]->{url};
 
 }
