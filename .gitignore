@@ -1,2 +1,2 @@
-# Saved content directory
-saved-content/
+# Dat files (having the website content) in the saved content directory
+saved-content/*.dat

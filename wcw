@@ -29,7 +29,7 @@ for my $file ( sort @files ) {
     my $content = get( $url );
 
     my $old_content = "";
-    my $old_filename = "./saved-content/$basefilename";
+    my $old_filename = "./saved-content/$basefilename.dat";
     if ( ! -f $old_filename ) {
         # File doesn't exist
         # no action
