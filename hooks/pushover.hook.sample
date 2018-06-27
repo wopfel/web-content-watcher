@@ -1,0 +1,24 @@
+#!/bin/bash
+
+ACTION=$1
+CONFIG=$2
+OLDFILE=$3
+
+API_TOKEN=xxx
+USER_KEY=xxx
+DEVICES=xxx
+MSG="$CONFIG has changed"
+
+if [[ "$ACTION" != "changed" ]] ; then
+    exit 0
+fi
+
+
+# https://pushover.net/faq#library-shell-attachment
+curl -s \
+  --form-string "token=$API_TOKEN" \
+  --form-string "user=$USER_KEY" \
+  --form-string "device=$DEVICES" \
+  --form-string "message=$MSG" \
+  https://api.pushover.net/1/messages.json
+

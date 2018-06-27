@@ -13,6 +13,12 @@ my @files = grep { ! /^\./ && /.*\.ya?ml$/ && -f "./websites/$_" } readdir $dh;
 closedir $dh;
 
 
+# Read directory with hook files
+opendir( my $hook_dh, "./hooks" ) || die "Can't open hooks directory";
+my @hook_files = grep { ! /^\./ && /.*\.hook$/ && -f "./hooks/$_" } readdir $hook_dh;
+closedir $hook_dh;
+
+
 # Process each file
 for my $file ( sort @files ) {
 
@@ -54,6 +60,8 @@ for my $file ( sort @files ) {
         }
     }
 
+    my $has_changed;
+
     # Compare old with current content
     if ( $old_content ne $content ) {
         # Something changed
@@ -63,8 +71,22 @@ for my $file ( sort @files ) {
         open( my $old_fh, ">", $old_filename ) || die "Can't open output file";
         print $old_fh $content;
         close $old_fh;
+
+        $has_changed = 1;
     } else {
         print "No new content.\n";
+        $has_changed = 0;
+    }
+
+    # Process hooks
+    for my $hook ( sort @hook_files ) {
+        print "Calling hook file '$hook'.\n";
+        my @args = ( "hooks/$hook",
+                     ( $has_changed ? "changed" : "unchanged" ),
+                     $basefilename,
+                     $old_filename
+                   );
+        system( @args );
     }
 
 }

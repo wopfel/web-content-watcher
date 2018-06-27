@@ -1,2 +1,4 @@
 # Dat files (having the website content) in the saved content directory
 saved-content/*.dat
+# Hook files (but keep the sample files)
+hooks/*.hook

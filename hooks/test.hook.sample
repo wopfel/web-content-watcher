@@ -1,0 +1,11 @@
+#!/bin/bash
+
+ACTION=$1
+CONFIG=$2
+OLDFILE=$3
+
+echo "ACTION: $ACTION"
+echo "CONFIG: $CONFIG"
+echo "OLDFILE: $OLDFILE"
+echo "-----"
+
