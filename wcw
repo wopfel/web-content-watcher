@@ -44,6 +44,11 @@ for my $file ( sort @files ) {
     if ( $old_content ne $content ) {
         # Something changed
         print "Content has changed.\n";
+
+        # Store content
+        open( my $old_fh, ">", $old_filename ) || die "Can't open output file";
+        print $old_fh $content;
+        close $old_fh;
     }
 
 }
