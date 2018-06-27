@@ -24,11 +24,18 @@ for my $file ( sort @files ) {
     # Reading content of config file
     my $yaml = YAML::Tiny->read( "./websites/$file" );
 
+    # Storing content
+    my $content;
+
     # Get "url: " value
     my $url = $yaml->[0]->{url};
 
-    # Retrieve content of website
-    my $content = get( $url );
+    if ( $url ) {
+        # Retrieve content of website
+        $content = get( $url );
+    } else {
+        die "No URL specified";
+    }
 
     my $old_content = "";
     my $old_filename = "./saved-content/$basefilename.dat";
