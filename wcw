@@ -1,0 +1,21 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+
+
+# Read directory with yaml files
+opendir( my $dh, "./websites" ) || die "Can't open directory";
+my @files = grep { ! /^\./ && /.*\.ya?ml/ && -f "./websites/$_" } readdir $dh;
+closedir $dh;
+
+
+# Process each file
+for my $file ( sort @files ) {
+
+    print "Processing file $file...\n";
+    
+    
+
+}
