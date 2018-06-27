@@ -39,6 +39,8 @@ for my $file ( sort @files ) {
         # no further action
     } else {
         {
+            # Read complete file
+            local $/;
             open( my $old_fh, "<", $old_filename ) || die "Can't open file";
             $old_content = <$old_fh>;
             close $old_fh;
