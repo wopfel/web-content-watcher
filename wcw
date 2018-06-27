@@ -27,12 +27,12 @@ for my $file ( sort @files ) {
     # Storing content
     my $content;
 
-    # Get "url: " value
-    my $url = $yaml->[0]->{url};
-
-    if ( $url ) {
+    if ( my $url = $yaml->[0]->{url} ) {
+        # Url parameter was specified
         # Retrieve content of website
         $content = get( $url );
+    } elsif ( my $cmd = $yaml->[0]->{cmd} ) {
+        $content = qx/ $cmd /;
     } else {
         die "No URL specified";
     }

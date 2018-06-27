@@ -1,0 +1,2 @@
+---
+cmd: "curl --silent 'https://www.archlinux.org/packages/search/json/?name=linux' | jq '.[\"results\"][] | {filename: .filename, repo: .repo}' | jq -s -c 'sort_by(.repo) | .[]'"
