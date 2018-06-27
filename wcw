@@ -3,6 +3,7 @@
 use strict;
 use warnings;
 use YAML::Tiny;
+use LWP::Simple;
 
 
 
@@ -17,9 +18,32 @@ for my $file ( sort @files ) {
 
     print "Processing file $file...\n";
 
+    # Strip ".yml" extension
+    ( my $basefilename ) = $file =~ /^(.*)\.ya?ml$/;
+
     # Reading content
     my $yaml = YAML::Tiny->read( "./websites/$file" );
 
     my $url = $yaml->[0]->{url};
+
+    my $content = get( $url );
+
+    my $old_content = "";
+    my $old_filename = "./saved-content/$basefilename";
+    if ( ! -f $old_filename ) {
+        # File doesn't exist
+        # no action
+    } else {
+        {
+            open( my $old_fh, "<", $old_filename ) || die "Can't open file";
+            $old_content = <$old_fh>;
+            close $old_fh;
+        }
+    }
+
+    if ( $old_content ne $content ) {
+        # Something changed
+        print "Content has changed.\n";
+    }
 
 }
