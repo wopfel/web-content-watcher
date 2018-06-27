@@ -9,7 +9,7 @@ use LWP::Simple;
 
 # Read directory with yaml files
 opendir( my $dh, "./websites" ) || die "Can't open directory";
-my @files = grep { ! /^\./ && /.*\.ya?ml/ && -f "./websites/$_" } readdir $dh;
+my @files = grep { ! /^\./ && /.*\.ya?ml$/ && -f "./websites/$_" } readdir $dh;
 closedir $dh;
 
 
