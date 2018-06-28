@@ -11,6 +11,7 @@ OLDFILE=$4
 API_TOKEN=xxx
 USER_KEY=xxx
 DEVICES=xxx
+TITLE="wcw: Something changed"
 MSG="$CONFIG has changed"
 
 if [[ "$ACTION" != "changed" ]] ; then
@@ -22,6 +23,7 @@ fi
 curl -s \
   --form-string "token=$API_TOKEN" \
   --form-string "user=$USER_KEY" \
+  --form-string "title=$TITLE" \
   --form-string "device=$DEVICES" \
   --form-string "message=$MSG" \
   https://api.pushover.net/1/messages.json
