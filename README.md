@@ -3,7 +3,7 @@ Watches websites and notifies on changes.
 
 You can configure websites you want to watch. See file `websites/archlinux-linux-pkg.yml` for an example. It notifies if the linux packages change on the Arch Linux website.
 
-You may call this by cron, for example once a day.
+You may call `./wcw` by cron, for example once a day.
 
 The notification is not implemented yet. The script just outputs "Content has changed" or "No new content" so far.
 
