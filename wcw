@@ -32,7 +32,7 @@ closedir $dh;
 
 # Read directory with hook files
 opendir( my $hook_dh, "./hooks" ) || die "Can't open hooks directory";
-my @hook_files = grep { ! /^\./ && /.*\.hook$/ && -f "./hooks/$_" } readdir $hook_dh;
+my @hook_files = grep { ! /^\./ && /.*\.hook$/ && -f "./hooks/$_" && -x _ } readdir $hook_dh;
 closedir $hook_dh;
 
 
@@ -101,10 +101,6 @@ for my $file ( sort @files ) {
     # Process hooks
     for my $hook ( sort @hook_files ) {
         my $hook_path = "./hooks/$hook";
-        if ( ! -x $hook_path ) {
-            print "Error: hook file '$hook' is not executable.\n";
-            next;
-        }
         print "Calling hook file '$hook'.\n";
         my @args = ( $hook_path,
                      ( $has_changed ? "changed" : "unchanged" ),
