@@ -1,9 +1,12 @@
 #!/bin/bash
 
+# Sample hook file
+# There's only a 4th parameter if the content has changed
+
 ACTION=$1
 CONFIG=$2
-OLDFILE=$3
-NEWFILE=$4
+CURRENTFILE=$3
+OLDFILE=$4
 
 API_TOKEN=xxx
 USER_KEY=xxx

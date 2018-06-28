@@ -100,14 +100,18 @@ for my $file ( sort @files ) {
 
     # Process hooks
     for my $hook ( sort @hook_files ) {
+        # File path to hook file
         my $hook_path = "./hooks/$hook";
         print "Calling hook file '$hook'.\n";
+        # Building args
         my @args = ( $hook_path,
                      ( $has_changed ? "changed" : "unchanged" ),
                      $basefilename,
-                     $old_filename,
                      $persistent_filename
                    );
+        # Pass filename with old content if content has changed
+        push @args, $old_filename  if  $has_changed;
+        # Execute hook
         system( @args );
     }
 
