@@ -47,7 +47,7 @@ for my $file ( sort @files ) {
     # Reading content of config file
     my $yaml = YAML::Tiny->read( "./websites/$file" );
 
-    # Storing content
+    # Retrieved content (either by url or by cmd)
     my $content;
 
     if ( my $url = $yaml->[0]->{url} ) {
@@ -55,6 +55,8 @@ for my $file ( sort @files ) {
         # Retrieve content of website
         $content = get( $url );
     } elsif ( my $cmd = $yaml->[0]->{cmd} ) {
+        # Cmd parameter was specified
+        # Execute the command
         $content = qx/ $cmd /;
     } else {
         die "Neither URL nor CMD specified";
@@ -105,6 +107,7 @@ for my $file ( sort @files ) {
         system( @args );
     }
 
+    # Delete the old version of the content
     if ( $has_changed ) {
         unlink "$old_filename.old";
     }
