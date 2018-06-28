@@ -40,7 +40,7 @@ for my $file ( sort @files ) {
     } elsif ( my $cmd = $yaml->[0]->{cmd} ) {
         $content = qx/ $cmd /;
     } else {
-        die "No URL specified";
+        die "Neither URL nor CMD specified";
     }
 
     my $old_content = "";
