@@ -66,6 +66,12 @@ for my $file ( sort @files ) {
     if ( $has_changed ) {
         # Something changed
         print "Content has changed.\n";
+        # Rename file to ".old"
+        rename $old_filename, "$old_filename.old";
+        # Store content
+        open( my $old_fh, ">", $old_filename ) || die "Can't open output file";
+        print $old_fh $content;
+        close $old_fh;
     } else {
         print "No new content.\n";
     }
@@ -76,16 +82,14 @@ for my $file ( sort @files ) {
         my @args = ( "hooks/$hook",
                      ( $has_changed ? "changed" : "unchanged" ),
                      $basefilename,
+                     "$old_filename.old",
                      $old_filename
                    );
         system( @args );
     }
 
     if ( $has_changed ) {
-        # Store content
-        open( my $old_fh, ">", $old_filename ) || die "Can't open output file";
-        print $old_fh $content;
-        close $old_fh;
+        unlink "$old_filename.old";
     }
 
 }
