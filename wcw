@@ -97,8 +97,13 @@ for my $file ( sort @files ) {
 
     # Process hooks
     for my $hook ( sort @hook_files ) {
+        my $hook_path = "./hooks/$hook";
+        if ( ! -x $hook_path ) {
+            print "Error: hook file '$hook' is not executable.\n";
+            next;
+        }
         print "Calling hook file '$hook'.\n";
-        my @args = ( "hooks/$hook",
+        my @args = ( $hook_path,
                      ( $has_changed ? "changed" : "unchanged" ),
                      $basefilename,
                      "$old_filename.old",
