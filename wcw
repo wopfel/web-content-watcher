@@ -1,5 +1,22 @@
 #!/usr/bin/perl
 
+
+###################################################################
+#
+#   web-content-watcher (wcw)
+#
+###################################################################
+#
+#   A program which watches websites and notifies on changes
+#
+#   https://github.com/wopfel/web-content-watcher
+#
+#   Copyright (c) 2018 Bernd Arnold
+#   See LICENSE file for details
+#
+###################################################################
+
+
 use strict;
 use warnings;
 use YAML::Tiny;
