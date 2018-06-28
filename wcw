@@ -48,49 +48,52 @@ for my $file ( sort @files ) {
     my $yaml = YAML::Tiny->read( "./websites/$file" );
 
     # Retrieved content (either by url or by cmd)
-    my $content;
+    my $current_content;
 
     if ( my $url = $yaml->[0]->{url} ) {
         # Url parameter was specified
         # Retrieve content of website
-        $content = get( $url );
+        $current_content = get( $url );
     } elsif ( my $cmd = $yaml->[0]->{cmd} ) {
         # Cmd parameter was specified
         # Execute the command
-        $content = qx/ $cmd /;
+        $current_content = qx/ $cmd /;
     } else {
         die "Neither URL nor CMD specified";
     }
 
-    my $old_content = "";
-    my $old_filename = "./saved-content/$basefilename.dat";
+    # The persistent content (on disk)
+    my $persistent_content = "";
+    my $persistent_filename = "./saved-content/$basefilename.current";
+    # The previous (old) persistent content (on disk)
+    my $old_filename        = "./saved-content/$basefilename.old";
 
     # Check if file with previous content exists
-    if ( ! -f $old_filename ) {
-        print "File '$old_filename' didn't exist.\n";
+    if ( ! -f $persistent_filename ) {
+        print "File '$persistent_filename' didn't exist.\n";
         # no further action
     } else {
         {
             # Read complete file
             local $/;
-            open( my $old_fh, "<", $old_filename ) || die "Can't open file";
-            $old_content = <$old_fh>;
-            close $old_fh;
+            open( my $persistent_fh, "<", $persistent_filename ) || die "Can't open file";
+            $persistent_content = <$persistent_fh>;
+            close $persistent_fh;
         }
     }
 
     # Compare old with current content
-    my $has_changed = $old_content ne $content;
+    my $has_changed = $persistent_content ne $current_content;
 
     if ( $has_changed ) {
         # Something changed
         print "Content has changed.\n";
         # Rename file to ".old"
-        rename $old_filename, "$old_filename.old";
+        rename $persistent_filename, $old_filename;
         # Store content
-        open( my $old_fh, ">", $old_filename ) || die "Can't open output file";
-        print $old_fh $content;
-        close $old_fh;
+        open( my $persistent_fh, ">", $persistent_filename ) || die "Can't open output file";
+        print $persistent_fh $current_content;
+        close $persistent_fh;
     } else {
         print "No new content.\n";
     }
@@ -106,15 +109,15 @@ for my $file ( sort @files ) {
         my @args = ( $hook_path,
                      ( $has_changed ? "changed" : "unchanged" ),
                      $basefilename,
-                     "$old_filename.old",
-                     $old_filename
+                     $old_filename,
+                     $persistent_filename
                    );
         system( @args );
     }
 
     # Delete the old version of the content
     if ( $has_changed ) {
-        unlink "$old_filename.old";
+        unlink $old_filename;
     }
 
 }
