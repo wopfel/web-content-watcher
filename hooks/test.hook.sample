@@ -12,6 +12,9 @@ echo "ACTION: $ACTION"
 echo "CONFIG: $CONFIG"
 echo "OLDFILE: $OLDFILE"
 echo "CURRENTFILE: $CURRENTFILE"
-sha1sum "$OLDFILE" "$CURRENTFILE"
+sha1sum "$CURRENTFILE"
+if [[ "$ACTION" == "changed" ]] ; then
+    sha1sum "$OLDFILE"
+fi
 echo "-----"
 
