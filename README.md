@@ -32,3 +32,14 @@ When the hook file is called, up to 4 parameters are passed:
 3. the filename with the current content of the website
 4. the filename with the previous (old) content (only passed when the content has changed)
 
+
+## Getting started ##
+
+This step-by-step instructions assumes you have a Pushover account (Pushover is a separate service, not related to this script). Otherwise, you can easily adopt the hook script for a Prowl notification or a mail.
+
+1. Copy `websites/archlinux-iso.yml.sample` to `websites/archlinux-iso.yml`
+2. Copy `hooks/pushover.hook.sample` to `hooks/pushover.hook` and modify it to your needs
+3. Execute ./wcw, it should detect there was no old file
+4. Run a cron job calling the `wcw` script on the 1st day of each month every hour.
+
+
