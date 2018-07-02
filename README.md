@@ -37,6 +37,8 @@ When the hook file is called, up to 4 parameters are passed:
 
 This step-by-step instructions assumes you have a Pushover account (Pushover is a separate service, not related to this script). Otherwise, you can easily adopt the hook script for a Prowl notification or a mail.
 
+At the end, you will receive a notification when the new Arch Linux ISO is ready. Usually this happens once a month on the 1st. When a new ISO is released no later than 1 hour you should get a notification (1 hour so the Arch web servers don't get stressed).
+
 1. Copy `websites/archlinux-iso.yml.sample` to `websites/archlinux-iso.yml`
 2. Copy `hooks/pushover.hook.sample` to `hooks/pushover.hook` and modify it to your needs
 3. Execute ./wcw, it should detect there was no old file
