@@ -14,9 +14,18 @@ DEVICES=xxx
 TITLE="wcw: Something changed"
 MSG="$CONFIG has changed"
 
+# Notify only if content has changed
 if [[ "$ACTION" != "changed" ]] ; then
     exit 0
 fi
+
+# Notify only for this package
+if [[ "$CONFIG" != "archlinux-linux-pkg-jq" ]] ; then
+    exit 0
+fi
+
+MSG="$MSG
+Current content: $( cat $CURRENTFILE )"
 
 
 # https://pushover.net/faq#library-shell-attachment
