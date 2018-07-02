@@ -1,0 +1,2 @@
+---
+cmd: "curl --silent https://www.archlinux.org/download/ | grep -A2 'Current Release:' | sed -e 's/<[a-z]*>//g' | sed -e 's!</[a-z]*>!!g' | sed -e 's/^ *//'"
