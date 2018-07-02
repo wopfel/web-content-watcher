@@ -1,3 +1,5 @@
+# Config files (but keep the sample files)
+websites/*.yml
 # Content files
 saved-content/*.current
 saved-content/*.old
