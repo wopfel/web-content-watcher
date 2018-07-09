@@ -21,6 +21,28 @@ use strict;
 use warnings;
 use YAML::Tiny;
 use LWP::Simple;
+use Getopt::Long;
+
+
+
+# Process arguments
+sub print_help();
+my $opt_h;
+Getopt::Long::Configure('bundling');
+my $getopt_status = GetOptions(
+    "h"   => \$opt_h,     "help" => \$opt_h,
+);
+
+if ( ! $getopt_status ) {
+    print "Error: cannot process arguments.\n";
+    print_help();
+    exit 1;
+}
+
+if ( $opt_h ) {
+    print_help();
+    exit 1;
+}
 
 
 
@@ -119,5 +141,23 @@ for my $file ( sort @files ) {
     if ( $has_changed ) {
         unlink $old_filename;
     }
+
+}
+
+
+
+sub print_help() {
+
+    my $msg = q{Usage: wcw
+        
+        Watches websites and notifies on changes
+        Copyright (c) 2018 Bernd Arnold
+        See readme on https://github.com/wopfel/web-content-watcher/blob/master/README.md
+        
+        OPTIONS
+        -h, --help: Show this help text
+        };
+    $msg =~ s/^ {8}//mg;
+    print $msg;
 
 }
