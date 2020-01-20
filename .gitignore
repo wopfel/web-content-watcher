@@ -5,3 +5,5 @@ saved-content/*.current
 saved-content/*.old
 # Hook files (but keep the sample files)
 hooks/*.hook
+# Data files (if you use Docker here)
+data/
