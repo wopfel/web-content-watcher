@@ -8,6 +8,7 @@ RUN apt update && apt install -y \
     libwww-perl \
     jq \
     curl \
+    procps \
   && rm -rf /var/lib/apt/lists/*
 
 ADD run.sh /
