@@ -45,3 +45,15 @@ At the end, you will receive a notification when the new Arch Linux ISO is ready
 4. Run a cron job calling the `wcw` script on the 1st day of each month every hour.
 
 
+## Docker ##
+
+```
+git clone ...
+cd web-content-watcher
+mkdir -p /YOUR/DATA/DIR/{hooks,saved-content,websites}
+# place some files in hooks/ and websites/, see example files, don't forget to chmod u+x the hooks files
+docker build -t wcw . --no-cache=true
+docker run -d --rm --name wcw-test1 -v /YOUR/DATA/DIR/:/data/ wcw:latest
+docker logs wcw-test1 --tail 10 -f -t
+```
+

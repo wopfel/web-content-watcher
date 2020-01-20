@@ -12,11 +12,11 @@ RUN apt update && apt install -y \
   && rm -rf /var/lib/apt/lists/*
 
 ADD run.sh /
-ADD web-content-watcher/ /wcw/
+ADD wcw /
 
-VOLUME /wcw/hooks
-VOLUME /wcw/saved-content
-VOLUME /wcw/websites
+RUN mkdir -p /data/{hooks,saved-content,websites}
+
+VOLUME /data
 
 CMD ["/run.sh"]
 
