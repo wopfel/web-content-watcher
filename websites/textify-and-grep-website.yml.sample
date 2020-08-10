@@ -1,0 +1,2 @@
+---
+cmd: "links -dump https://example.com/ | grep -A7 'Important information:'"

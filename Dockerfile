@@ -9,6 +9,7 @@ RUN apt update && apt install -y \
     jq \
     curl \
     procps \
+    links \
   && rm -rf /var/lib/apt/lists/*
 
 ADD run.sh /
